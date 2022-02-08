@@ -1,0 +1,5 @@
+@import "../../app/login/login.component.css";
+
+.signup-term {
+ display: inline !important;
+}

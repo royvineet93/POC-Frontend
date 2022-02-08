@@ -1,0 +1,158 @@
+.itemcontainer {
+    align-self: center;
+    margin-left: 2%;
+    margin-right: 2%;
+    font-weight: 500;
+}
+
+.newInvoice {
+    font-family: serif;
+    font-size: large;
+    font-weight: 700;
+    color: unset;
+    margin-top: 1%;
+}
+
+.clientField {
+    background-color: #f2f2f2;
+    height: 80px;
+    margin-top: 2%;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #d9d9d9;
+}
+
+.addItem {
+    margin-left: 55rem;
+}
+
+.marginItem {
+  margin-left: 12.5rem;
+}
+
+.clientSelect {
+    width: 60%;
+}
+
+.clientlabel {
+    margin-top: 2.5%;
+    margin-left: 2%;
+}
+
+.invoiceMargin {
+    margin-top: 2%;
+}
+
+.invoicelabel {
+    margin-top: 7%;
+    margin-left: 5%
+}
+
+.invoicefields {
+    margin-top: 7%;
+}
+
+.payement-terms {
+    margin-top: 2%;
+}
+
+.invoice {
+    height: 50px;
+    background-color: #009999;
+    margin-top: 2%;
+}
+
+.invoicebar {
+    margin-top: 1.5%;
+    margin-left: 1%;
+    color: white;
+    font-weight: 500;
+    font-size: medium;
+}
+
+.itemfield {
+    margin-top: 2%;
+}
+
+.itemdesciption {
+    width: 80%;
+}
+
+.itemSelect {
+    width: 80%;
+}
+
+.itemlabel {
+    margin-top: 2%;
+}
+
+.charactersleft {
+    text-align: right;
+    margin-right: 20%;
+    font-weight: 500;
+    font-size: small;
+}
+
+.itemfields {
+    width: 70%;
+    margin-left: 5%;
+}
+
+.discount {
+    margin-top: 4%;
+}
+
+.price {
+    width: 70%;
+    margin-left: 2%;
+}
+
+.priceLabel {
+    margin-top: 4%;
+    margin-left: 2%;
+}
+
+.divmargintop {
+    margin-top: 2%;
+}
+
+.invoiceButton {
+    margin-left: 1%;
+}
+
+.itemtable {
+    width: 100%;
+}
+
+.itemTablemargin {
+    margin-top: 2%;
+}
+
+.edit {
+    color: brown;
+    cursor: pointer;
+}
+
+.delete {
+    color: red;
+    cursor: pointer;
+}
+
+.save {
+    color: blue;
+    cursor: pointer;
+}
+
+.inputFieldItem{
+    width:95%;
+}
+
+.inputItem {
+    width: 100px;
+}
+
+@media print {
+    body, html, #wrapper {
+        width: 100%;
+    }
+}

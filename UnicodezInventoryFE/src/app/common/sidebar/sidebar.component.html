@@ -1,0 +1,12 @@
+<div class="sidebar">
+    <div class="imageAndTitle" *ngFor="let sideBar of sideBarArray; let i=index" [class.selected]="sideBar.name === selectedSideBar" (click)="onClick(sideBar.name)">
+        <a [class.selected]="sideBar.name === selectedSideBar">
+            <div class="sideContentImage">
+                <i class={{sideBar.image}} id="image"></i>
+            </div>
+            <div class="sideContentTitle">
+                {{sideBar.name}}
+            </div>
+        </a>
+    </div>
+</div>

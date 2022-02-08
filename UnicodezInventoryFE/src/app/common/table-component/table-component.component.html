@@ -1,0 +1,153 @@
+<br/>
+<div [ngClass]="getClass()">
+    <button *ngIf="showEdit" (click)="addForm()" mat-raised-button color="Basic">
+    Edit
+  </button> &nbsp;
+    <button *ngIf="showDelete" mat-raised-button color="Basic" (click)="confirmDeletion()">
+    Delete
+  </button> &nbsp;
+    <button mat-raised-button color="Basic" (click)="addForm()">New</button> &nbsp;
+    <button mat-raised-button color="Basic" (click)="confirmImport()">Import</button> &nbsp;
+    <button mat-raised-button color="Basic" (click)="confirmExport()">Export</button>
+</div>
+<br/>
+<div class="mat-elevation-z8 align">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="id"></ng-container>
+
+        <ng-container matColumnDef="{{displayedColumns[0]}}">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="getClass()">
+                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row" [ngClass]="getClass()">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef={{displayedColumns[1]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="addClassToFirstElement()"> {{displayedHeaders[1]}} </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="addClassToFirstElement()">
+                <div *ngIf="vendorSer">{{element.companyName}}</div>
+                <div *ngIf="itemSer">{{element.name}}</div>
+                <div *ngIf="clientSer">{{element.companyName}}</div>
+                <div *ngIf="invService">{{element.issueDate}}</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef={{displayedColumns[2]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedHeaders[2]}} </th>
+            <td mat-cell *matCellDef="let element">
+                <div *ngIf="vendorSer">{{element.contactName}}</div>
+                <div *ngIf="itemSer">{{element.itemCode}}</div>
+                <div *ngIf="clientSer">{{element.contactName}}</div>
+                <div *ngIf="invService">{{element.docNo}}</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef={{displayedColumns[3]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedHeaders[3]}} </th>
+            <td mat-cell *matCellDef="let element">
+                <div *ngIf="vendorSer">{{element.phone.slice(0,3)+'-'+element.phone.slice(3,6)+'-'+element.phone.slice(6)}}</div>
+                <div *ngIf="itemSer">{{element.description}}</div>
+                <div *ngIf="clientSer">{{element.phone.slice(0,3)+'-'+element.phone.slice(3,6)+'-'+element.phone.slice(6)}}</div>
+                <div *ngIf="invService">{{element.clientName}}</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef={{displayedColumns[4]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedHeaders[4]}} </th>
+            <td mat-cell *matCellDef="let element">
+                <div *ngIf="vendorSer">{{element.email}}</div>
+                <div *ngIf="itemSer">{{element.quantity}}</div>
+                <div *ngIf="clientSer">{{element.email}}</div>
+                <div *ngIf="invService">{{element.dueDate}}</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef={{displayedColumns[5]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="getClass()"> {{displayedHeaders[5]}} </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="getClass()">
+                <div *ngIf="vendorSer">{{element.gstin}}</div>
+                <div *ngIf="itemSer">{{element.unit}}</div>
+                <div *ngIf="clientSer">{{element.gstin}}</div>
+                <div *ngIf="invService">{{element.amount}}</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef={{displayedColumns[6]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="getClass()"> {{displayedHeaders[6]}} </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="getClass()">
+                <div *ngIf="vendorSer">{{element.panId}}</div>
+                <div *ngIf="itemSer">{{element.tax}}</div>
+                <div *ngIf="clientSer">{{element.panId}}</div>
+                <div *ngIf="invService">{{element.dateOfPayement}}</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef={{displayedColumns[7]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="getClass()"> {{displayedHeaders[7]}} </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="getClass()">
+                <div *ngIf="vendorSer">{{element.vat}}</div>
+                <div *ngIf="itemSer">{{element.HSN}}</div>
+                <div *ngIf="clientSer">{{element.tin}}</div>
+                <div *ngIf="invService">{{element.balance}}</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef={{displayedColumns[8]}} *ngIf="!invService">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="getClass()"> {{displayedHeaders[8]}} </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="getClass()">
+                <div *ngIf="vendorSer">{{element.website}}</div>
+                <div *ngIf="itemSer">{{element.SAC}}</div>
+                <div *ngIf="clientSer">{{element.vat}}</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef={{displayedColumns[9]}} *ngIf="!invService">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="getClass()"> {{displayedHeaders[9]}} </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="getClass()">
+                <div *ngIf="vendorSer">{{element.vendorCode}}</div>
+                <div *ngIf="itemSer">{{element.itemType}}</div>
+                <div *ngIf="clientSer">{{element.website}}</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef={{displayedColumns[10]}} *ngIf="!invService">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="my-mat-cell" [ngClass]="getClass()"> {{displayedHeaders[10]}} </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="getClass()">
+                <div *ngIf="vendorSer"><pre>{{element.billingAddress.address +
+      '\n' + element.billingAddress.country + element.billingAddress.city + ', ' + element.billingAddress.state + ', '
+      + element.billingAddress.pincode}}</pre></div>
+                <div *ngIf="itemSer">{{element.salesInfo}}</div>
+                <div *ngIf="clientSer"><pre>{{element.billingAddress}}</pre></div>
+            </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef={{displayedColumns[10]}}>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="my-mat-cell"> {{displayedHeaders[10]}} </th>
+    <td mat-cell *matCellDef="let element">
+      <div *ngIf="vendorSer"><pre>{{element.billingAddress.address}}
+        {{element.billingAddress.country}} {{element.billingAddress.city}}
+        {{element.billingAddress.state}} {{element.billingAddress.pincode}}</pre></div>
+      <div *ngIf="itemSer">{{element.salesInfo}}</div>
+      <div *ngIf="clientSer"><pre>{{element.billingAddress.address}}{{element.billingAddress.country}}
+        {{element.billingAddress.state}}{{element.billingAddress.city}}{{element.billingAddress.pincode}}</pre></div>
+    </td>
+  </ng-container> -->
+
+        <ng-container matColumnDef={{displayedColumns[11]}} *ngIf="!invService">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="getClass()"> {{displayedHeaders[11]}} </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="getClass()">
+                <div *ngIf="vendorSer">{{element.notes}}</div>
+                <div *ngIf="itemSer">{{element.purchaseInfo}}</div>
+                <div *ngIf="clientSer">{{element.notes}}</div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openPdf(row)"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons [ngClass]="getClass()"></mat-paginator>
+</div>

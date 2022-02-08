@@ -1,0 +1,25 @@
+.addforms {
+    margin: 2% 5%;
+}
+
+.saveCancel {
+    padding: 3px;
+    margin-left: 4px;
+}
+
+.title {
+    font-family: serif;
+    font-size: large;
+    font-weight: 700;
+    color: unset;
+    margin-top: 1%;
+}
+
+.vertline {
+  border-left: 1px solid black;
+  height: 400px;
+}
+
+:host /deep/ .mat-form-field-infix {
+    width: 20rem;
+}

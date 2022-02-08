@@ -1,0 +1,247 @@
+<div class="addforms">
+  <div *ngIf="service=== 'clientService' && !isDataAvailable" class="title">
+    Add New Client
+  </div>
+  <div *ngIf="service=== 'vendorService' && !isDataAvailable" class="title">
+    Add New Vendor
+  </div>
+  <div *ngIf="service=== 'clientService' && isDataAvailable" class="title">
+    Update a Client
+  </div>
+  <div *ngIf="service=== 'vendorService' && isDataAvailable" class="title">
+    Update a Vendor
+  </div>
+  <br/>
+  <form (ngSubmit)="onSubmit()" [formGroup]="CVForm">
+    <mat-error *ngIf="CVForm.invalid">
+      Please fill in all the <strong>required</strong> fields.
+    </mat-error>
+    <div fxLayout="row">
+      <div fxFlex="100">
+        <div fxFlex="35">
+          <div fxLayout="row">
+            <mat-form-field>
+              <mat-label>Company Name</mat-label>
+              <input matInput id="companyName" name="companyName" placeholder="ex: Testing Industries" formControlName="companyName"
+              required [errorStateMatcher]="matcher">
+              <mat-error *ngIf="CVForm.invalid || CVForm.controls.companyName.errors.required">
+                Company Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field>
+              <mat-label>Phone</mat-label>
+              <input id="Phone" matInput name="phone" placeholder="ex: 2123456789" formControlName="phone" required [errorStateMatcher]="matcher">
+              <mat-error *ngIf="CVForm.invalid || CVForm.controls.phone.errors.required">
+                Phone no. is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input id="email" matInput name="email" placeholder="ex: abc@abc.com" formControlName="email" required [errorStateMatcher]="matcher">
+              <mat-error *ngIf="CVForm.invalid || CVForm.controls.email.errors.required">
+                Company Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field>
+              <mat-label>PAN</mat-label>
+              <input id="PAN" matInput name="PAN" placeholder="PAN" formControlName="pan" required [errorStateMatcher]="matcher">
+              <mat-error *ngIf="CVForm.invalid || CVForm.controls.PAN.errors.required">
+                Company PAN is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field>
+              <mat-label>VAT No</mat-label>
+              <input id="vat" matInput name="TIN" placeholder="VAT No" formControlName="tin">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field>
+              <mat-label>Website</mat-label>
+              <input id="Website" matInput name="Website" placeholder="ex: test.com" formControlName="website">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field>
+              <mat-label>Currency</mat-label>
+              <mat-select formControlName="currency" required [errorStateMatcher]="matcher">
+                <mat-option value="">Select the currency*</mat-option>
+                <mat-option *ngFor="let code of countryCodes" [value]="code">{{code}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="CVForm.invalid || CVForm.controls.currency.errors.required">
+                Currency is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="65" class="vertline">
+          <mat-tab-group>
+            <mat-tab label="Contact Details">
+              <br/>
+                <mat-form-field>
+                  <mat-label>Contact Name</mat-label>
+                  <input id="contactName" matInput name="contactName" placeholder="ex: myName" formControlName="contactName" required [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="CVForm.invalid || CVForm.controls.contactName.errors.required">
+                    Contact Name is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>Contact Email</mat-label>
+                  <input id="contactEmail" matInput name="contactEmail" placeholder="ex: abc@abc.com" formControlName="contactEmail" required [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="CVForm.invalid || CVForm.controls.contactEmail.errors.required">
+                    Contact Email is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>Contact Phone</mat-label>
+                  <input id="contactPhone" matInput name="contactPhone" placeholder="ex: 1234567892" formControlName="contactPhone" required [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="CVForm.invalid || CVForm.controls.contactPhone.errors.required">
+                    Contact Phone is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </mat-tab>
+            <mat-tab label="Billing Address">
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>Address</mat-label>
+                  <input matInput id="billAdd" name="billAdd" placeholder="ex: flat abc xyz society" formControlName="billAdd">
+                </mat-form-field>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>Country</mat-label>
+                  <mat-select (selectionChange)="onChangeCountry($event.value)" formControlName="billCountry" id="billCountry" name="billCountry">
+                    <mat-option value="">Choose your country*</mat-option>
+                    <mat-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>State</mat-label>
+                  <mat-select (selectionChange)="onChangeState($event.value)" formControlName="billState" id="billState" name="billState">
+                    <mat-option value="">Choose your state*</mat-option>
+                    <mat-option *ngFor="let state of states" [value]="state.id">{{state.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>City</mat-label>
+                  <mat-select formControlName="billCity" id="billCity" name="billCity">
+                    <mat-option value="">Choose your city*</mat-option>
+                    <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>Zip Code</mat-label>
+                  <input matInput id="billPincode" name="billPincode" placeholder="ex: 462041" formControlName="billPincode">
+                </mat-form-field>
+              </div>
+              <br/>
+              <button class="itemButton" color="primary" mat-raised-button *ngIf="!shippingAdd" (click)="addShippingAddress()">Add Shipping Address</button>
+              <div *ngIf="shippingAdd">
+                <br/>
+                <mat-label>Shipping Address</mat-label>
+                <div fxLayout="row">
+                  <mat-form-field>
+                    <mat-label>Address</mat-label>
+                    <input matInput id="shipAdd" name="shipAdd" placeholder="ex: flat abc xyz society" formControlName="shipAdd">
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                  <mat-form-field>
+                    <mat-label>Country</mat-label>
+                    <mat-select (change)="onChangeCountry($event.target.value)" formControlName="shipCountry" id="shipCountry" name="shipCountry">
+                      <mat-option value="">Choose your country*</mat-option>
+                      <mat-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                  <mat-form-field>
+                    <mat-label>State</mat-label>
+                    <mat-select (change)="onChangeState($event.target.value)" formControlName="shipState" id="shipState" name="shipState">
+                      <mat-option value="">Choose your state*</mat-option>
+                      <mat-option *ngFor="let state of states" [value]="state.id">{{state.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                  <mat-form-field>
+                    <mat-label>City</mat-label>
+                    <mat-select (change)="onChangeState($event.target.value)" formControlName="shipCity" id="shipCity" name="shipCity">
+                      <mat-option value="">Choose your state*</mat-option>
+                      <mat-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                  <mat-form-field>
+                    <mat-label>Zip Code</mat-label>
+                    <input matInput id="shipPincode" name="shipPincode" placeholder="ex: 462041" formControlName="shipPincode">
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Comments">
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>Notes</mat-label>
+                  <textarea id="notes" matInput name="notes" placeholder="ex: important note" formControlName="notes"></textarea>
+                </mat-form-field>
+              </div>
+            </mat-tab>
+            <mat-tab label="Other Info">
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>Facebook</mat-label>
+                  <input id="facebook" matInput name="facebook" placeholder="ex: abc@gmail.com" formControlName="facebook">
+                </mat-form-field>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>LST</mat-label>
+                  <input id="lst" matInput name="lst" placeholder="ex: 2" formControlName="lst">
+                </mat-form-field>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>CST</mat-label>
+                  <input id="cst" matInput name="cst" placeholder="ex: 2" formControlName="cst">
+                </mat-form-field>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field>
+                  <mat-label>Service Tax</mat-label>
+                  <input id="serviceTax" matInput name="serviceTax" placeholder="ex: 2" formControlName="serviceTax">
+                </mat-form-field>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+    <br/>
+      <button class="itemButton" color="primary" mat-raised-button class="saveCancel" *ngIf="!isDataAvailable">Save</button>
+      <button class="itemButton" color="primary" mat-raised-button class="saveCancel" *ngIf="isDataAvailable">Update</button>
+      <button class="itemButton" color="primary" mat-raised-button class="saveCancel" (click)="redirect()">Cancel</button>
+    <br />
+    <br />
+  </form>
+  <br />
+  <br />
+</div>

@@ -1,0 +1,27 @@
+<div>
+    <form [formGroup]="razorPayForm" (ngSubmit)="createOrder()" class="checkout">
+        <label for="order-info">Order Info</label>
+        <div id="form-field">
+            <div id="order-info">
+                Name:
+                <input formControlName="name" type="name" id="inputName" class="form-control" placeholder="Name"><br>
+                Amount:
+                <input formControlName="amount" type="amount" id="inputAmount" class="form-control"
+                    placeholder="Amount"><br>
+                Email:
+                <input formControlName="email" type="email" id="inputEmail" class="form-control" placeholder="Email"
+                    autofocus>
+                <br>
+                Currency:
+                <select formControlName="currency" type="currency" id="inputCurrency" class="form-control" autofocus>
+                    <option *ngFor="let code of currencyCodes" [value]="code">{{code}}</option>
+                </select>
+            </div>
+            <br>
+            <button id="submit-button" class="btn btn-success btn-block" type="submit">
+                Pay
+            </button>
+
+        </div>
+    </form>
+</div>

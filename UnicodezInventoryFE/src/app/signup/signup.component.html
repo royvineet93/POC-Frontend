@@ -1,0 +1,86 @@
+<div class="header">
+  <img class="logo" src="../../assets/images/Unicodez-fullogo.png" />
+  <br />
+  <label class="loginLable">Great! You're just few steps away to register and generate the unlimited invoices.</label>
+</div>
+<div id="logreg-forms">
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="form-signin">
+    <div class="social-login" (click)="signInWithGoogle()">
+      <button class="btn google-btn social-btn" type="button"><span><i style='font-size:1rem'
+            class="fab fa-google-plus-g"></i>&nbsp; Sign in with Google</span> </button>
+    </div>
+    <p style="text-align:center"><b> or complete the Form:</b></p>
+    <input type="text" formControlName="firstName" id="firstName" class="form-control" placeholder="First Name*"
+       [ngClass]="{ 'is-invalid': submitted && signupForm.controls.firstName.errors }">
+    <div *ngIf="submitted" class="invalid-feedback">
+      <div *ngIf="signupForm.controls.firstName.errors.required">FirstName is required</div>
+    </div>
+    <br>
+    <input type="text" formControlName="lastName" id="lastName" class="form-control" placeholder="Last Name*"
+      autofocus="" [ngClass]="{ 'is-invalid': submitted && signupForm.controls.lastName.errors }">
+    <div *ngIf="submitted && signupForm.controls.lastName.errors" class="invalid-feedback">
+      <div *ngIf="signupForm.controls.lastName.errors.required">LastName is required</div>
+    </div>
+    <br>
+    <input type="email" formControlName="email" id="inputEmail" class="form-control" placeholder="Email*" autofocus=""
+      [ngClass]="{ 'is-invalid': submitted && signupForm.controls.email.errors }">
+    <div *ngIf="submitted && signupForm.controls.email.errors" class="invalid-feedback">
+      <div *ngIf="signupForm.controls.email.errors.required">Email is required</div>
+    </div>
+    <br>
+    <input type="password" formControlName="password" id="inputPassword" class="form-control" placeholder="Password*"
+      [ngClass]="{ 'is-invalid': submitted && signupForm.controls.password.errors }">
+    <div *ngIf="submitted && signupForm.controls.password.errors" class="invalid-feedback">
+      <div *ngIf="signupForm.controls.password.errors.required">Password is required</div>
+      <div *ngIf="signupForm.controls.password.errors.minlength">Password must be at least 6 characters</div>
+    </div>
+
+    <br>
+    <input type="text" formControlName="companyName" id="companyName" class="form-control" placeholder="Company Name*"
+      [ngClass]="{ 'is-invalid': submitted && signupForm.controls.companyName.errors }">
+    <div *ngIf="submitted && signupForm.controls.companyName.errors" class="invalid-feedback">
+      <div *ngIf="signupForm.controls.companyName.errors.required">CompanyName is required</div>
+    </div>
+    <br>
+    <input type="text" formControlName="phoneNumber" id="phone" class="form-control" placeholder="Phone*"
+      [ngClass]="{ 'is-invalid': submitted && signupForm.controls.phoneNumber.errors }">
+    <div *ngIf="submitted && signupForm.controls.phoneNumber.errors" class="invalid-feedback">
+      <div *ngIf="signupForm.controls.phoneNumber.errors.required">PhoneNumber is required</div>
+    </div>
+    <br>
+    <select formControlName="country" type="dropdown" id="country" class="form-control"
+      (change)="onChangeCountry($event.target.value)" 
+      [ngClass]="{ 'is-invalid': submitted && signupForm.controls.country.errors}">
+      <option value="">Choose your country*</option>
+      <option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
+    </select>
+    <div *ngIf="submitted && signupForm.controls.country.errors" class="invalid-feedback">
+      <div *ngIf="signupForm.controls.country.errors.required">Country is required</div>
+    </div>
+    <br>
+    <select formControlName="state" type="dropdown" id="state" class="form-control"
+      (change)="onChangeState($event.target.value)" 
+      [ngClass]="{ 'is-invalid': submitted && signupForm.controls.state.errors}">
+      <option value="">Choose your state*</option>
+      <option *ngFor="let state of states" [value]="state.id">{{state.name}}</option>
+    </select>
+    <div *ngIf="submitted && signupForm.controls.state.errors" class="invalid-feedback">
+      <div *ngIf="signupForm.controls.state.errors.required">State is required</div>
+    </div>
+    <br>
+    <select formControlName="city" type="dropdown" id="city" class="form-control"
+    [ngClass]="{ 'is-invalid': submitted && signupForm.controls.city.errors}">
+      <option value="">Choose your city*</option>
+      <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+    </select>
+    <div *ngIf="submitted && signupForm.controls.city.errors" class="invalid-feedback">
+      <div *ngIf="signupForm.controls.city.errors.required">City is required</div>
+    </div>
+    <button class="btn btn-success btn-block" type="submit"> Proceed</button>
+    <label style="font-size: 10px">By proceeding ahead you agree to the <a href="/termsAndCondition" class="signup-term"> Terms of
+        Service </a> and <a href="/privacyPolicy" class="signup-term"> Privacy Policy.</a></label>
+  </form>
+</div>
+<div class="no-account">
+  <label>Already a Member? </label> <a href="#"> Login</a>
+</div>

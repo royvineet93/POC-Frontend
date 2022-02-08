@@ -1,0 +1,33 @@
+table {
+    width: 100%;
+}
+
+th {
+    font-family: emoji;
+    color: black;
+    /* background-color: slategray; */
+    text-align: left;
+    font-style: italic;
+    font-weight: 600;
+}
+
+button {
+    width: 8rem;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-radius: 100px;
+}
+
+.overlay {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    box-shadow: black;
+    background-color: white;
+}
+
+.mat-cell {
+    padding: 15px 15px 15px 0;
+}

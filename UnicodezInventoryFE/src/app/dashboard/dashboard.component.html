@@ -1,0 +1,67 @@
+<div class="dashboard-container">
+    <div fxLayout="row">
+        <div fxFlex="100">
+            <div fxLayout="row" class="first-row">
+                <div fxFlex="50" class="summary-text">
+                    SUMMARY
+                </div>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="image">
+                        <i class="fas fa-user-tie" id="image"></i>
+                    </div>
+                    <div class="titleAndCount">
+                        <div class="title">
+                            Clients
+                        </div>
+                        <div class="count">
+                            {{clientCount}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="image">
+                        <i class="fas fa-dolly-flatbed" id="image"></i>
+                    </div>
+                    <div class="titleAndCount">
+                        <div class="title middle">
+                            Items
+                        </div>
+                        <div class="count">
+                          {{itemCount}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="image">
+                        <i class="fas fa-users" id="image"></i>
+                    </div>
+                    <div class="titleAndCount">
+                        <div class="title">
+                            Vendor
+                        </div>
+                        <div class="count">
+                          {{vendorCount}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div fxLayout="row" class="previousData">
+        <div fxFlex="100">
+            <div fxLayout="row" class="first-row" fxLayoutAlign="space-between">
+                <div fxFlex="47">
+                    Last 5 Items
+                    <app-table-component [dataSource]="dataSource" [displayedColumns]="displayedColumns" [displayedHeaders]="displayedHeaders" [service]="serviceType" [transform]="transformItem" [showButtons]=false></app-table-component>
+                </div>
+                <div fxFlex="47">
+                    Last 5 Invoices
+                    <app-table-component [dataSource]="dataSourceInvoice" [displayedColumns]="displayedColumnsInvoice" [displayedHeaders]="displayedHeadersInvoice" [service]="serviceTypeInvoice" [transform]="transformInvoice" [showButtons]=false></app-table-component>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

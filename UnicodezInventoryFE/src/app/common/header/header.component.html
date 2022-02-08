@@ -1,0 +1,19 @@
+<div class="header">
+    <!--<button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon (click)="hideSideBar()" class="menu">menu</mat-icon>
+    </button>-->
+    <div class="hideBar">
+
+    </div>
+    <div class="logos">
+        <img class="logoImg" src="../../assets/images/unicodez-coloured-web.png" />
+        <img class="logo" src="../../assets/images/Unicodez-logo.png" />
+    </div>
+   <div class = "paymentbutton"> <button mat-raised-button color="primary"  (click) ="openPayementWindow()" type="button" class="">Pay Now</button></div>
+    <div class="logoutImg">
+      <label>Welcome {{firstname}}&nbsp;&nbsp;{{lastname}}</label>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <label class="signoutText">signout</label>
+        <img class="logout" (click)="onLogout()" src="../../assets/images/logout.svg" />
+    </div>
+</div>

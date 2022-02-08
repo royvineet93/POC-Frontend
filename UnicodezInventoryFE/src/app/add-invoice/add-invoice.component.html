@@ -1,0 +1,383 @@
+<div id= "invoiceMainContainer">
+<form [formGroup]="invoiceForm" (submit)="onSubmit()">
+    <div class="itemcontainer">
+        <div class="newInvoice" *ngIf="!isDataAvailable">
+            Add New Tax Invoice
+        </div>
+        <div class="newInvoice" *ngIf="isDataAvailable">
+            Edit Tax Invoice
+        </div>
+        <div fxLayout="row" class="clientField">
+            <div fxFlex="100">
+                <div fxFlex="20" class="clientlabel">
+                    Client Name
+                </div>
+                <div fxFlex="80">
+                    <mat-form-field class="clientSelect">
+                        <mat-select placeholder="Select Client" required formControlName="clientName">
+                            <mat-option *ngFor="let name of clientNames" [value]="name">{{name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" class="invoiceMargin">
+            <div fxFlex="30">
+                <div fxLayout="row">
+                    <div fxFlex="25" class="invoicelabel">
+                        Invoice No
+                    </div>
+                    <div fxFlex="55">
+                        <mat-form-field>
+                            <input matInput required formControlName="invoiceNo">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="33">
+                <div fxLayout="row">
+                    <div fxFlex="25" class="invoicefields">
+                        Invoice Date
+                    </div>
+                    <div fxFlex="55">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="invoiceDate" placeholder="Invoice Date" required
+                                formControlName="invoiceDate">
+                            <mat-datepicker-toggle matSuffix [for]="invoiceDate"></mat-datepicker-toggle>
+                            <mat-datepicker #invoiceDate></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="33">
+                <div fxLayout="row">
+                    <div fxFlex="25" class="invoicefields">
+                        Due Date
+                    </div>
+                    <div fxFlex="55">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="dueDate" placeholder="Due Date" required
+                                formControlName="dueDate">
+                            <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+                            <mat-datepicker #dueDate></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row">
+            <div fxFlex="30">
+                <div fxLayout="row">
+                    <div fxFlex="25" class="invoicelabel">
+                        PO No
+                    </div>
+                    <div fxFlex="55">
+                        <mat-form-field>
+                            <input matInput required formControlName="PONo">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="33">
+                <div fxLayout="row">
+                    <div fxFlex="25" class="invoicefields">
+                        PO Date
+                    </div>
+                    <div fxFlex="55">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="poDate" placeholder="PO Date" required
+                                formControlName="PODate">
+                            <mat-datepicker-toggle matSuffix [for]="poDate"></mat-datepicker-toggle>
+                            <mat-datepicker #poDate></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxFlex="36">
+                <div fxLayout="row">
+                    <div fxFlex="25" class="payment-terms">
+                        Payment Terms
+                    </div>
+                    <div fxFlex="85">
+                        <mat-form-field >
+                            <mat-select placeholder="Payment Terms" formControlName="paymentTerms">
+                                <mat-option [value]="7">NET 7</mat-option>
+                                <mat-option [value]="15">NET 15</mat-option>
+                                <mat-option [value]="30">NET 30</mat-option>
+                                <mat-option [value]="45">NET 45</mat-option>
+                                <mat-option [value]="60">NET 60</mat-option>
+                                <mat-option [value]="90">NET 90</mat-option>
+                                <mat-option [value]="30">NET 30</mat-option>
+                                <mat-option [value]="45">NET 45</mat-option>
+                                <mat-option [value]="60">NET 60</mat-option>
+                                <mat-option [value]="90">NET 90</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" class="invoice">
+            <div fxFlex="100" class="invoicebar">
+                Invoice
+            </div>
+        </div>
+      <div class="mat-elevation-z8 align itemTablemargin" *ngIf="selectedItemData && selectedItemData.length >0" >
+        <table mat-table [dataSource]="dataSource" class ="itemtable" matSort >
+
+          <ng-container matColumnDef="id"></ng-container>
+
+          <ng-container matColumnDef="{{displayedColumns[0]}}">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{displayedHeaders[0]}}</th>
+            <td mat-cell *matCellDef="let element let i = index">
+              <div *ngIf="!element.edit" >{{element.name}}</div>
+              <div *ngIf="element.edit" class ="inputItem">
+                <mat-form-field class="inputFieldItem">
+                    <input matInput [value] = "element.name"  (blur)="updateValue($event.target.value ,i,'name')">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef={{displayedColumns[1]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedHeaders[1]}} </th>
+            <td mat-cell *matCellDef="let element let i = index">
+              <div *ngIf="!element.edit">{{element.itemCode}}</div>
+              <div *ngIf="element.edit" class ="inputItem">
+                <mat-form-field class="inputFieldItem">
+                    <input matInput [value] = "element.itemCode" (blur)="updateValue($event.target.value ,i,'itemcode')">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef={{displayedColumns[2]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedHeaders[2]}} </th>
+            <td mat-cell *matCellDef="let element let i = index">
+              <div *ngIf="!element.edit">{{element.description}}</div>
+              <div *ngIf="element.edit" class ="inputItem">
+                <mat-form-field class="inputFieldItem">
+                    <input matInput [value] = "element.description" (blur)="updateValue($event.target.value ,i,'description')">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef={{displayedColumns[3]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedHeaders[3]}} </th>
+            <td mat-cell *matCellDef="let element let i = index">
+              <div *ngIf="!element.edit">{{element.quantity}}</div>
+              <div *ngIf="element.edit" class ="inputItem">
+                <mat-form-field class="inputFieldItem">
+                    <input  matInput [value] = "element.quantity"(blur)="updateValue($event.target.value ,i,'quantity')">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef={{displayedColumns[4]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedHeaders[4]}} </th>
+            <td mat-cell *matCellDef="let element let i = index">
+              <div *ngIf="!element.edit">{{element.unit}}</div>
+              <div *ngIf="element.edit" class ="inputItem">
+                <mat-form-field class="inputFieldItem">
+                    <mat-select (selectionChange) ="updateValue($event.value ,i,'unit')">
+                        <mat-option *ngFor="let unit of units" [value]="unit.name">{{unit.label}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef={{displayedColumns[5]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedHeaders[5]}} </th>
+            <td mat-cell *matCellDef="let element let i = index">
+              <div *ngIf="!element.edit">{{element.tax}}</div>
+              <div *ngIf="element.edit" class ="inputItem">
+                <mat-form-field class="inputFieldItem">
+                    <mat-select (selectionChange) ="updateValue($event.value ,i,'tax')">
+                        <mat-option *ngFor="let tax of taxes" [value]="tax.name">{{tax.label}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef={{displayedColumns[6]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedHeaders[6]}} </th>
+            <td mat-cell *matCellDef="let element let i = index">
+              <div *ngIf="!element.edit">{{element.HSN}}</div>
+              <div *ngIf="element.edit" class ="inputItem">
+                <mat-form-field class="inputFieldItem">
+                    <input [value] = "element.HSN" matInput (blur)="updateValue($event.target.value ,i,'HSN')">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef={{displayedColumns[7]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedHeaders[7]}} </th>
+            <td mat-cell *matCellDef="let element let i = index">
+              <div *ngIf="!element.edit">{{element.SAC}}</div>
+              <div *ngIf="element.edit" class ="inputItem">
+                <mat-form-field class="inputFieldItem">
+                    <input [value] = "element.SAC" matInput (blur)="updateValue($event.target.value ,i,'SAC')">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef={{displayedColumns[8]}}>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{displayedHeaders[8]}} </th>
+            <td mat-cell *matCellDef="let element let i = index">
+              <div *ngIf="!element.edit">{{element.itemType}}</div>
+              <div *ngIf="element.edit" class ="inputItem">
+                <mat-form-field class="inputFieldItem">
+                    <input matInput [value] = "element.itemType" (blur)="updateValue($event.target.value ,i,'itemType')">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef > {{displayedHeaders[9]}} </th>
+            <td mat-cell *matCellDef="let element" class="action-link">
+                <mat-icon *ngIf="!element.edit" (click)="updateLocalItems(element)" class="edit" aria-label="Edit">edit</mat-icon>
+                <mat-icon *ngIf="element.edit" (click)="saveItem(element)" class="save" aria-label="Save">save</mat-icon>
+                <mat-icon (click)="deleteLocalItems(element)" class="delete" aria-label="Delete">delete</mat-icon>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+        <div fxLayout="row">
+            <div fxFlex="100" class="itemfield">
+                <div fxFlex="20" class="itemlabel">
+                    Item
+                </div>
+                <div fxFlex="80">
+                    <mat-form-field class="itemSelect">
+                        <mat-select (selectionChange)="setItem($event)" placeholder="Select Item"
+                            formControlName="currentItem">
+                            <mat-option *ngFor="let item of itemData" [value]="item._id">{{item.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row">
+            <div fxFlex="100" class="itemfield">
+                <div fxFlex="20">
+
+                </div>
+                <div fxFlex="80">
+                    <mat-form-field class="itemdesciption">
+                        <textarea matInput formControlName="itemDescription" placeholder="Description"></textarea>
+                    </mat-form-field>
+                    <div class="charactersleft">
+                        500 characters left
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div fxLayout="row" class="marginItem">
+            <div fxFlex="60">
+                <div fxFlex="50" class="clientlabel">
+                    SAC
+                </div>
+                <div fxFlex="50">
+                    <mat-form-field class="itemfields">
+                        <input matInput formControlName="sac" placeholder="SAC">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="20" class="clientlabel">
+                    Unit
+                </div>
+                <div fxFlex="80">
+                    <mat-form-field class="itemfields">
+                        <mat-select placeholder="Unit" formControlName="itemUnit">
+                            <mat-option *ngFor="let unit of units" [value]="unit.name">{{unit.label}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="20" class="clientlabel">
+                    Quantity
+                </div>
+                <div fxFlex="80">
+                    <mat-form-field class="itemfields">
+                        <input formControlName="quantity" matInput placeholder="Quantity">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" class="marginItem">
+            <div fxFlex="60">
+                <div fxFlex="50" class="priceLabel">
+                    Price
+                </div>
+                <div fxFlex="50">
+                    <mat-form-field class="price">
+                        <input formControlName="price" matInput placeholder="Price">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="20" class="discount">
+                    Discount
+                </div>
+                <div fxFlex="80">
+                    <mat-form-field class="itemfields">
+                        <input formControlName="discount" matInput placeholder="Discount">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="20" class="discount">
+                    Tax
+                </div>
+                <div fxFlex="80">
+                    <mat-form-field class="itemfields">
+                        <mat-select placeholder="Tax" formControlName="itemTax">
+                            <mat-option *ngFor="let tax of taxes" [value]="tax.name">{{tax.label}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="addItem">
+            <button mat-raised-button color="primary" type="button" (click)="updateAndPublishItem()"
+                class="invoiceButton">Add Item</button>
+        </div>
+        <br />
+        <br />
+        <div fxLayout="row">
+            <div fxFlex="20">
+                Terms and Condition
+            </div>
+            <div fxFlex="80">
+                <mat-form-field>
+                    <textarea id="termsAndConditions" matInput formControlName="termsAndConditions"
+                        placeholder="*Terms and Condition" formControlName="termsAndConditions"></textarea>
+                </mat-form-field>
+            </div>
+            <div fxFlex="20">
+                Privacy notes
+            </div>
+            <div fxFlex="80">
+                <mat-form-field>
+                    <textarea id="privacyNotes" matInput formControlName="privacyNotes"
+                        placeholder="privates notes, not visible to anyone" formControlName="privacyNotes"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="divmargintop">
+            <button mat-raised-button color="primary" type="submit" class="invoiceButton">Preview & save</button>
+            <button mat-raised-button color="primary" type="button" class="invoiceButton">Save as draft</button>
+            <button mat-raised-button color="primary" type="button" class="invoiceButton"
+                (click)="redirect()">Cancel</button>
+        </div>
+    </div>
+  <br />
+  <br />
+</form>
+</div>

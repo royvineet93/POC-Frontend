@@ -1,0 +1,107 @@
+.itemcontainer {
+    align-self: center;
+    margin-left: 2%;
+    margin-right: 2%;
+    font-weight: 500;
+}
+
+.vertline {
+  border-left: 1px solid black;
+  height: 330px;
+}
+
+.newitem {
+    font-family: serif;
+    font-size: large;
+    font-weight: 700;
+    color: unset;
+    margin-top: 1%;
+}
+
+.margin {
+    margin-left: 2%;
+}
+
+.marginhsn {
+    margin-left: 2%;
+    margin-top: 3%;
+}
+.inputfield {
+  width: 80%;
+}
+
+.margintop {
+ margin-top: 4%;
+}
+
+.inputfieldSelect{
+    width: 60%;
+}
+:host /deep/ .mat-form-field-infix{
+    width: 400px;
+}
+
+.inputlabel {
+    padding-top: 5%;
+}
+.hsnlabel {
+    padding-top: 7.5%;
+    padding-left: 2%;
+}
+.inputfieldbottom{
+    padding-top: 10%;
+    padding-left: 4%;
+}
+.quantitylabel {
+    padding-top: 14%;
+    padding-left: 4%;
+}
+.unitlabel{
+    padding-top: 15%;
+    padding-left: 2%;
+}
+.taxlabel {
+    padding-top: 11%;
+}
+.cess {
+    margin-right: 5%;
+    padding-left: 4%;
+}
+.textarealabel {
+    padding-top: 7%;
+}
+
+.salesinfoBorder {
+    border-top: 0.5px groove #e6e6e6;
+    width:86%;
+}
+
+.salesinfo {
+    margin-top: 5%;
+}
+.purchaseinfo {
+    margin-top: 8%;
+    padding-left: 2%;
+}
+
+.smallinputfield{
+    text-align: right;
+}
+.alignItems {
+    text-align: left;
+}
+
+.itemButton {
+    margin-left: 1%;
+}
+
+.divmargintop {
+    margin-top: 2%;
+}
+
+.charactersleft {
+    text-align: right;
+    margin-right: 10%;
+    font-weight: 400;
+    font-size: small;
+}

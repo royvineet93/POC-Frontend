@@ -1,0 +1,44 @@
+@import url('../../clients/clients.component.css');
+.editAlign {
+    margin-left: 22rem;
+    margin-right: 1%;
+}
+
+th {
+font-style: normal;
+}
+
+.deleteAlign {
+    margin-left: 31rem;
+    margin-right: 1%;
+}
+
+.headAlign {
+    margin-left: 39rem;
+    margin-right: 1%;
+}
+
+.align {
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.mat-row:nth-child(n) {
+    background-color: whitesmoke;
+}
+
+.mat-row:not(:nth-child(2n+1)) {
+    background-color: #ffffff;
+}
+
+.hideButtons {
+    display: none;
+}
+
+.firstItem {
+    padding-left: 3%;
+}
+
+.mat-paginator {
+    background-color: #eee;
+}

@@ -1,0 +1,16 @@
+<div *ngIf="loggedInUser">
+    <app-header></app-header>
+</div>
+
+<div class="overlay">
+    <ngx-loading-bar [color]="'blue'" [diameter]="'50px'" [fixed]="false"></ngx-loading-bar>
+</div>
+
+<div class="content">
+    <div class="sidebarMain" *ngIf="loggedInUser">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="mainContent">
+        <router-outlet></router-outlet>
+    </div>
+</div>

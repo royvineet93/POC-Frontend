@@ -1,0 +1,486 @@
+<div class="itemcontainer">
+    <div class="newitem" *ngIf="!isEdit">
+        Add New Item
+    </div>
+    <form [formGroup]="itemForm" (submit)="onSubmit()">
+        <div fxLayout="row">
+            <div fxFlex="100">
+                <mat-tab-group (selectedTabChange)="tabChanged($event)" [selectedIndex]="selectedTab">
+                    <mat-tab label="PRODUCT">
+                        <div fxLayout="row" class="divmargintop">
+                            <div fxFlex="50">
+                                <div fxLayout="row">
+                                    <div fxFlex="50">
+                                        <div fxLayout="row">
+                                            <div fxFlex="45" class="inputfieldbottom">
+                                                Name
+                                            </div>
+                                            <div fxFlex="55">
+                                                <mat-form-field class="inputfield">
+                                                    <input matInput formControlName="productName">
+                                                    <mat-error
+                                                        *ngIf="itemForm.invalid || itemForm.controls.productName.errors.required">
+                                                        Name is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="50" class="smallinputfield">
+                                        <div fxLayout="row">
+                                            <div fxFlex="30" class="inputfieldbottom cess">
+                                                Item Code
+                                            </div>
+                                            <div fxFlex="60" class="alignItems">
+                                                <mat-form-field class="inputfieldSelect">
+                                                    <input matInput formControlName="productItemCode">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div fxLayout="row">
+                                        <div fxFlex="20" class="textarealabel">
+                                            <span>Description</span>
+                                        </div>
+                                        <div fxFlex="80" class="margin">
+                                            <mat-form-field>
+                                                <textarea matInput formControlName="productDescription"
+                                                    [maxlength]="500" [(ngModel)]="productCharaters">
+                                            </textarea>
+                                            </mat-form-field>
+                                            <div class="charactersleft">
+                                                {{500-productCharaters.length}} characters left
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="salesinfo">
+                                    Sales Info
+                                </div>
+                                <div class="salesinfoBorder">
+                                    <div fxLayout="row" class="margintop">
+                                        <div fxFlex="50">
+                                            <div fxLayout="row">
+                                                <div fxFlex="45" class="inputfieldbottom">
+                                                    Unit Price
+                                                </div>
+                                                <div fxFlex="55">
+                                                    <mat-form-field class="inputfield">
+                                                        <input matInput placeholder="0"
+                                                            formControlName="productUnitPice">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxFlex="50" class="smallinputfield">
+                                            <div fxLayout="row">
+                                                <div fxFlex="30" class="inputfieldbottom">
+                                                    Currency
+                                                </div>
+                                                <div fxFlex="70">
+                                                    <mat-form-field class="inputfieldSelect"
+                                                        formControlName="productCurrency">
+                                                        <mat-select formControlName="productCurrency">
+                                                            <mat-option *ngFor="let code of countryCodes"
+                                                                [value]="code">{{code}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row">
+                                        <div fxFlex="50">
+                                            <div fxLayout="row">
+                                                <div fxFlex="45" class="inputfieldbottom">
+                                                    CESS%
+                                                </div>
+                                                <div fxFlex="55">
+                                                    <mat-form-field class="inputfield">
+                                                        <input matInput placeholder="0"
+                                                            formControlName="productCessPercent">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxFlex="50" class="smallinputfield">
+                                            <div fxLayout="row">
+                                                <div fxFlex="30" class="inputfieldbottom cess">
+                                                    +CESS
+                                                </div>
+                                                <div fxFlex="70">
+                                                    <mat-form-field class="inputfieldSelect">
+                                                        <input matInput placeholder="0" formControlName="productCess">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex="50" class="vertline">
+                                <div fxLayout="row">
+                                    <div fxFlex="30">
+                                        <div fxLayout="row">
+                                            <div fxFlex="45" class="quantitylabel">
+                                                Quantity
+                                            </div>
+                                            <div fxFlex="55">
+                                                <mat-form-field class="inputfield">
+                                                    <input matInput formControlName="quantity">
+                                                    <mat-error
+                                                        *ngIf="itemForm.invalid || itemForm.controls.quantity.errors.required">
+                                                        Quantity is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="30" class="smallinputfield">
+                                        <div fxLayout="row">
+                                            <div fxFlex="30" class="unitlabel alignItems">
+                                                Unit
+                                            </div>
+                                            <div fxFlex="70" class="alignItems">
+                                                <mat-form-field class="inputfieldSelect">
+                                                    <input matInput formControlName="productUnit">
+                                                    <mat-error
+                                                        *ngIf="itemForm.invalid || itemForm.controls.productUnit.errors.required">
+                                                        Unit is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="40" class="smallinputfield">
+                                        <div fxLayout="row">
+                                            <div fxFlex="30" class="taxlabel alignItems">
+                                                Tax
+                                            </div>
+                                            <div fxFlex="70" class="alignItems">
+                                                <mat-form-field class="inputfieldSelect">
+                                                    <mat-select formControlName="productTax">
+                                                        <mat-option [value]="0">0</mat-option>
+                                                        <mat-option [value]="5">5%</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div fxLayout="row">
+                                        <div fxFlex="15" class="hsnlabel">
+                                            <span>HSN</span>
+                                        </div>
+                                        <div fxFlex="85" class="marginhsn">
+                                            <mat-form-field>
+                                                <input matInput formControlName="hsn">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="purchaseinfo">
+                                    Purchase Info
+                                </div>
+                                <div class="salesinfoBorder">
+                                    <div fxLayout="row" class="margintop">
+                                        <div fxFlex="50">
+                                            <div fxLayout="row">
+                                                <div fxFlex="45" class="inputfieldbottom">
+                                                    Unit Price
+                                                </div>
+                                                <div fxFlex="55">
+                                                    <mat-form-field class="inputfield">
+                                                        <input matInput placeholder="0"
+                                                            formControlName="productPurchaseUnitPice">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxFlex="50" class="smallinputfield">
+                                            <div fxLayout="row">
+                                                <div fxFlex="30" class="inputfieldbottom">
+                                                    Currency
+                                                </div>
+                                                <div fxFlex="70">
+                                                    <mat-form-field class="inputfieldSelect">
+                                                        <mat-select formControlName="productPurchaseCurrency">
+                                                            <mat-option *ngFor="let code of countryCodes"
+                                                                [value]="code">{{code}}</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row">
+                                        <div fxFlex="50">
+                                            <div fxLayout="row">
+                                                <div fxFlex="45" class="inputfieldbottom">
+                                                    CESS%
+                                                </div>
+                                                <div fxFlex="55">
+                                                    <mat-form-field class="inputfield">
+                                                        <input matInput placeholder="0"
+                                                            formControlName="productPurchaseCessPercent">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxFlex="50" class="smallinputfield">
+                                            <div fxLayout="row">
+                                                <div fxFlex="30" class="inputfieldbottom cess">
+                                                    +CESS
+                                                </div>
+                                                <div fxFlex="70">
+                                                    <mat-form-field class="inputfieldSelect">
+                                                        <input matInput placeholder="0"
+                                                            formControlName="productPurchaseCess">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="SERVICE">
+                        <div fxLayout="row" class="divmargintop">
+                            <div fxFlex="50">
+                                <div fxLayout="row">
+                                    <div fxFlex="50">
+                                        <div fxLayout="row">
+                                            <div fxFlex="45" class="inputfieldbottom">
+                                                Name
+                                            </div>
+                                            <div fxFlex="55">
+                                                <mat-form-field class="inputfield">
+                                                    <input matInput formControlName="serviceName">
+                                                    <mat-error
+                                                        *ngIf="itemForm.invalid || itemForm.controls.serviceName.errors.required">
+                                                        Name is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="50" class="smallinputfield">
+                                        <div fxLayout="row">
+                                            <div fxFlex="30" class="inputfieldbottom cess">
+                                                Item Code
+                                            </div>
+                                            <div fxFlex="60" class="alignItems">
+                                                <mat-form-field class="inputfieldSelect">
+                                                    <input matInput formControlName="serviceItemCode">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div fxLayout="row">
+                                        <div fxFlex="20" class="textarealabel">
+                                            <span>Description</span>
+                                        </div>
+                                        <div fxFlex="80" class="margin">
+                                            <mat-form-field>
+                                                <textarea matInput formControlName="serviceDescription"
+                                                    [(ngModel)]="serviceCharaters">
+                                                </textarea>
+                                            </mat-form-field>
+                                            <div class="charactersleft">
+                                                {{500-serviceCharaters.length}} characters left
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="salesinfo">
+                                    Sales Info
+                                </div>
+                                <div class="salesinfoBorder">
+                                    <div fxLayout="row" class="margintop">
+                                        <div fxFlex="50">
+                                            <div fxLayout="row">
+                                                <div fxFlex="45" class="inputfieldbottom">
+                                                    Unit Price
+                                                </div>
+                                                <div fxFlex="55">
+                                                    <mat-form-field class="inputfield">
+                                                        <input matInput placeholder="0"
+                                                            formControlName="serviceUnitPice">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxFlex="50" class="smallinputfield">
+                                            <div fxLayout="row">
+                                                <div fxFlex="30" class="inputfieldbottom">
+                                                    Currency
+                                                </div>
+                                                <div fxFlex="70">
+                                                    <mat-form-field class="inputfieldSelect">
+                                                        <mat-select formControlName="serviceCurrency">
+                                                            <option value=""></option>
+                                                            <mat-option value="1">INR</mat-option>
+                                                            <mat-option value="2">DLR</mat-option>
+                                                            <mat-option value="3">YEN</mat-option>
+                                                            <mat-option value="4">EUR</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row">
+                                        <div fxFlex="50">
+                                            <div fxLayout="row">
+                                                <div fxFlex="45" class="inputfieldbottom">
+                                                    CESS%
+                                                </div>
+                                                <div fxFlex="55">
+                                                    <mat-form-field class="inputfield">
+                                                        <input matInput placeholder="0"
+                                                            formControlName="servicetCessPercent">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxFlex="50" class="smallinputfield">
+                                            <div fxLayout="row">
+                                                <div fxFlex="30" class="inputfieldbottom cess">
+                                                    +CESS
+                                                </div>
+                                                <div fxFlex="70">
+                                                    <mat-form-field class="inputfieldSelect">
+                                                        <input matInput placeholder="0" formControlName="serviceCess">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex="50" class="vertline">
+                                <div fxLayout="row">
+                                    <div fxFlex="50">
+                                        <div fxLayout="row">
+                                            <div fxFlex="30" class="inputfieldbottom">
+                                                Unit
+                                            </div>
+                                            <div fxFlex="70">
+                                                <mat-form-field class="inputfieldSelect">
+                                                    <input matInput placeholder="0" formControlName="serviceUnit">
+                                                    <mat-error
+                                                        *ngIf="itemForm.invalid || itemForm.controls.serviceUnit.errors.required">
+                                                        Unit is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="50" class="smallinputfield">
+                                        <div fxLayout="row">
+                                            <div fxFlex="30" class="inputfieldbottom alignItems">
+                                                Tax
+                                            </div>
+                                            <div fxFlex="70" class="alignItems">
+                                                <mat-form-field class="inputfieldSelect ">
+                                                    <mat-select formControlName="serviceTax">
+                                                        <mat-option [value]="0">0</mat-option>
+                                                        <mat-option [value]="5">5%</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div fxLayout="row">
+                                        <div fxFlex="15" class="hsnlabel">
+                                            <span>SAC</span>
+                                        </div>
+                                        <div fxFlex="85" class="marginhsn">
+                                            <mat-form-field>
+                                                <input matInput formControlName="sac">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="purchaseinfo">
+                                    Purchase Info
+                                </div>
+                                <div class="salesinfoBorder">
+                                    <div fxLayout="row" class="margintop">
+                                        <div fxFlex="50">
+                                            <div fxLayout="row">
+                                                <div fxFlex="45" class="inputfieldbottom">
+                                                    Unit Price
+                                                </div>
+                                                <div fxFlex="55">
+                                                    <mat-form-field class="inputfield">
+                                                        <input matInput placeholder="0"
+                                                            formControlName="servicePurchaseUnitPice">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxFlex="50" class="smallinputfield">
+                                            <div fxLayout="row">
+                                                <div fxFlex="30" class="inputfieldbottom">
+                                                    Currency
+                                                </div>
+                                                <div fxFlex="70">
+                                                    <mat-form-field class="inputfieldSelect">
+                                                        <mat-select formControlName="servicePurchaseCurrency">
+                                                            <option value=""></option>
+                                                            <mat-option value="1">INR</mat-option>
+                                                            <mat-option value="2">DLR</mat-option>
+                                                            <mat-option value="3">YEN</mat-option>
+                                                            <mat-option value="4">EUR</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row">
+                                        <div fxFlex="50">
+                                            <div fxLayout="row">
+                                                <div fxFlex="45" class="inputfieldbottom">
+                                                    CESS%
+                                                </div>
+                                                <div fxFlex="55">
+                                                    <mat-form-field class="inputfield">
+                                                        <input matInput placeholder="0"
+                                                            formControlName="servicePurchaseCessPercent">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxFlex="50" class="smallinputfield">
+                                            <div fxLayout="row">
+                                                <div fxFlex="30" class="inputfieldbottom cess">
+                                                    +CESS
+                                                </div>
+                                                <div fxFlex="70">
+                                                    <mat-form-field class="inputfieldSelect">
+                                                        <input matInput placeholder="0"
+                                                            formControlName="servicePurchaseCess">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+        <div class="divmargintop">
+            <button mat-raised-button color="primary" type="submit" class="itemButton">Save</button>
+            <button mat-raised-button color="primary" type="button" (click)="redirect()"
+                class="itemButton">Cancel</button>
+        </div>
+    </form>
+</div>

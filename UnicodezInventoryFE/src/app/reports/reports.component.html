@@ -1,0 +1,28 @@
+<div class="reports">
+    <div class="sideReportOptions">
+        <div class="heading">Reports</div>
+        <div class="subheadings">
+            <div class="subheadingReport{{i}}" *ngFor="let heading of subheadings; index as i" (click)="selectedHeadingFunc(heading)" [class.selected]="heading === selectedHeading">
+                {{heading}}
+            </div>
+        </div>
+    </div>
+    <div class='reportsContent'>
+        <div class="reportsHeading">{{selectedHeading}}</div>
+        <div class="timePeriod">
+            <label>Financial Period between</label>
+            <div class="dates">
+                <div>
+                    <input type="date" id="birthday" name="birthday" style="width:200px" class="maxDate">
+                </div>
+                <label class="and">and</label>
+                <div>
+                    <input type="date" id="birthday" name="birthday" style="width:200px" class="maxDate">
+                </div>
+                <div class="export">
+                    <button mat-raised-button color="primary" (click)="export()" style="width:150px">Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

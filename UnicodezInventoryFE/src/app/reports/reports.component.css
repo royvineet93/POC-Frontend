@@ -1,0 +1,88 @@
+.reports {
+    display: flex;
+    flex-direction: row;
+    height: 86vh;
+}
+
+.sideReportOptions {
+    width: 15vw;
+    height: 86vh;
+    background-color: #eee;
+    box-shadow: 5px 7px 25px #999;
+}
+
+.reportsContent {
+    width: 80vw;
+    height: 86vh;
+}
+
+.heading {
+    font-weight: bold;
+    padding: 10% 0 10% 5%;
+    box-shadow: 0px 1px 0px #999;
+}
+
+.subheadings {
+    padding: 20% 0 0 5%;
+}
+
+div[class^="subheadingReport"] {
+    padding: 10% 5%;
+    cursor: pointer;
+}
+
+div[class^="subheadingReport"].selected {
+    padding: 6% 5%;
+    cursor: pointer;
+    background-color: grey;
+}
+
+.reportsHeading {
+    height: 8.9vh;
+    padding: 1.7% 2%;
+    box-shadow: 0px 1px 0px #999;
+}
+
+.timePeriod {
+    margin: 2% 5%;
+    border: 1px solid #999
+}
+
+.dateTimePicker {
+    width: 100%;
+}
+
+label {
+    padding: 15px 0px 10px 15px;
+    font-size: 18px;
+}
+
+.dates {
+    margin: 2%;
+    display: flex;
+    height: 20vh;
+    width: 95%;
+}
+
+.maxDate {
+    background-color: #eee;
+    height: 30%;
+    padding-left: 8%;
+    padding-right: 2%;
+    margin-left: 2%;
+    border: 1px solid gray;
+}
+
+input::selection {
+    border: none;
+}
+
+.and {
+    padding-left: 6%;
+    padding-right: 5%;
+    padding-top: 1%;
+}
+
+.export {
+    margin-left: 12%;
+}

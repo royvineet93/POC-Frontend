@@ -1,0 +1,23 @@
+.popupContent {
+    margin-left: 7rem;
+    font-size: 1.3rem;
+    color: deepskyblue;
+}
+
+.popupConText {
+    margin-left: 7rem;
+    margin-right: 7rem;
+    font-weight: 500;
+}
+
+.emailStyle {
+    font-style: oblique;
+    font-family: fangsong;
+    text-align: center;
+    color: blue;
+    font-size: x-large;
+}
+
+input:focus {
+    outline: none;
+}
